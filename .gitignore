@@ -1,0 +1,5 @@
+node_modules
+nodemon.json
+
+# Editor directories and files
+*.code-workspace

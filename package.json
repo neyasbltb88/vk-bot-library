@@ -1,0 +1,30 @@
+{
+    "name": "vk-bot-library",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node bot/index.js",
+        "start:ngrok": "call ngrok.exe http 3004",
+        "dev": "nodemon --inspect bot/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "cross-env": "^6.0.3",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-plugin-node": "^10.0.0",
+        "nodemon": "^1.19.4"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "lodash": "^4.17.15",
+        "vk-easy": "^1.4.1"
+    },
+    "engines": {
+        "node": ">=9.0.0"
+    }
+}
