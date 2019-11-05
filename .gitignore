@@ -1,5 +1,6 @@
 node_modules
 nodemon.json
+/bot/test.js
 
 # Editor directories and files
 *.code-workspace

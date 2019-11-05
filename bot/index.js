@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const HANDLERS = require('./event-handlers');
 
 global.ROOT_DIR = __dirname;
-console.log(global.ROOT_DIR);
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +19,7 @@ app.post('/', (req, res) => {
     const Handler = HANDLERS[type];
 
     if (Handler) {
-        new Handler(body, res);
+        new Handler({ body, res });
     } else {
         console.log(`Не найден обработчик для события "${type}"`);
     }
