@@ -1,5 +1,5 @@
 module.exports = async ({ member_id }, peer_id) => {
-    const api = require(global.ROOT_DIR + '/api');
+    const api = require(global.PATH.API);
 
     try {
         let user = await api('users.get', { user_ids: member_id });

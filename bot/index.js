@@ -1,9 +1,17 @@
-const { PORT } = require('./config');
+const CONFIG = require('./config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const HANDLERS = require('./event-handlers');
+const path = require('path');
 
-global.ROOT_DIR = __dirname;
+global.PATH = {
+    ROOT: __dirname,
+    API: path.resolve(__dirname, './api.js'),
+    CONFIG: path.resolve(__dirname, './config.js'),
+    MSG_ACTIONS: path.resolve(__dirname, './event-handlers/message_new/actions')
+};
+
+global.CONFIG = CONFIG;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,4 +35,4 @@ app.post('/', (req, res) => {
     res.end('ok');
 });
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+app.listen(CONFIG.PORT, () => console.log(`Example app listening on port ${CONFIG.PORT}!`));

@@ -1,5 +1,3 @@
-const ACTIONS = require('./actions');
-
 module.exports = class {
     constructor({ body }) {
         console.log('Обработчик события "message_new"');
@@ -9,11 +7,12 @@ module.exports = class {
 
         if (body.object.message.action) {
             let action = body.object.message.action;
-            this.actionCaller(action);
+            this.msgActionCaller(action);
         }
     }
 
-    actionCaller(action) {
+    msgActionCaller(action) {
+        const ACTIONS = require(global.PATH.MSG_ACTIONS);
         const actionHandler = ACTIONS[action.type];
 
         if (actionHandler) {

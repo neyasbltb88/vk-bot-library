@@ -1,6 +1,6 @@
 module.exports = class {
     constructor({ res }) {
-        const { CONFIRMATION } = require(global.ROOT_DIR + '/config');
+        const { CONFIRMATION } = require(global.PATH.CONFIG);
 
         res.end(CONFIRMATION);
     }
