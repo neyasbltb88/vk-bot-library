@@ -6,7 +6,7 @@ const CONFIG = require('./config.js');
 module.exports = (method, params, get) => {
     get = get || false;
     params = {
-        v: '5.80',
+        v: CONFIG.API_VERSION,
         access_token: CONFIG.TOKEN,
         ...params
     };

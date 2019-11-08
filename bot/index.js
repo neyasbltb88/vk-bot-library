@@ -1,8 +1,10 @@
-const CONFIG = require('./config');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const CONFIG = require('./config');
 const HANDLERS = require('./event-handlers');
-const path = require('path');
+const serverSetup = require('./server-setup');
 
 global.PATH = {
     ROOT: __dirname,
@@ -35,4 +37,9 @@ app.post('/', (req, res) => {
     res.end('ok');
 });
 
-app.listen(CONFIG.PORT, () => console.log(`Example app listening on port ${CONFIG.PORT}!`));
+app.listen(CONFIG.PORT, async () => {
+    console.log(`Example app listening on port ${CONFIG.PORT}!`);
+
+    // Настройка Callback API сервера в сообществе
+    await serverSetup(global.CONFIG);
+});

@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node bot/index.js",
-        "start:ngrok": "call ngrok.exe http 3004",
-        "dev": "nodemon --inspect bot/index.js"
+        "start:ngrok": "call ngrok.exe start --none",
+        "dev": "nodemon --inspect bot/index.js",
+        "start": "node bot/index.js"
     },
     "keywords": [],
     "author": "",
@@ -26,6 +26,6 @@
         "lodash": "^4.17.15"
     },
     "engines": {
-        "node": ">=9.0.0"
+        "node": ">=10.0.0"
     }
 }
