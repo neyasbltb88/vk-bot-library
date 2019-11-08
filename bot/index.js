@@ -10,7 +10,8 @@ global.PATH = {
     ROOT: __dirname,
     API: path.resolve(__dirname, './api.js'),
     CONFIG: path.resolve(__dirname, './config.js'),
-    MSG_ACTIONS: path.resolve(__dirname, './event-handlers/message_new/actions')
+    MSG_ACTIONS: path.resolve(__dirname, './event-handlers/message_new/actions'),
+    MSG_COMMANDS: path.resolve(__dirname, './event-handlers/message_new/commands')
 };
 
 global.CONFIG = CONFIG;

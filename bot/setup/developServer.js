@@ -188,10 +188,11 @@ module.exports = class {
 
     async init() {
         this.ngrokPublicUrl = await this.getNgrokPublicUrl();
-        console.log('-ngrokPublicUrl-: ', this.ngrokPublicUrl);
+        // console.log('-ngrokPublicUrl-: ', this.ngrokPublicUrl);
 
         this.groupId = await this.getGroupId();
-        console.log('-getGroupId-:', this.groupId);
+        this.CONFIG.GROUP_ID = this.groupId.toString();
+        // console.log('-getGroupId-:', this.groupId);
 
         await this.setupDevCallbackServer();
     }
