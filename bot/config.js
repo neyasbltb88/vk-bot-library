@@ -7,5 +7,6 @@ module.exports = {
     API_VERSION: process.env.API_VERSION,
     PORT: process.env.PORT,
     CONFIRMATION: process.env.CONFIRMATION,
-    TOKEN: process.env.TOKEN
+    TOKEN: process.env.TOKEN,
+    DB_URL: process.env.DB_URL
 };

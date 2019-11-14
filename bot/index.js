@@ -5,16 +5,18 @@ const bodyParser = require('body-parser');
 const CONFIG = require('./config');
 const HANDLERS = require('./event-handlers');
 const serverSetup = require('./server-setup');
+const db = require('./db');
 
 global.PATH = {
     ROOT: __dirname,
-    API: path.resolve(__dirname, './api.js'),
-    CONFIG: path.resolve(__dirname, './config.js'),
+    API: path.resolve(__dirname, './api'),
+    CONFIG: path.resolve(__dirname, './config'),
     MSG_ACTIONS: path.resolve(__dirname, './event-handlers/message_new/actions'),
     MSG_COMMANDS: path.resolve(__dirname, './event-handlers/message_new/commands')
 };
-
 global.CONFIG = CONFIG;
+const DB = new db(CONFIG.DB_URL);
+global.DB = DB;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,6 +42,9 @@ app.post('/', (req, res) => {
 
 app.listen(CONFIG.PORT, async () => {
     console.log(`Example app listening on port ${CONFIG.PORT}!`);
+
+    // Подключение к базе данных
+    await DB.connect();
 
     // Настройка Callback API сервера в сообществе
     await serverSetup(global.CONFIG);

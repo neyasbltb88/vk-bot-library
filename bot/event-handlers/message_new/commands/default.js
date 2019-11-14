@@ -6,10 +6,12 @@ module.exports = class {
 
     async reply(answer = this.answer) {
         const api = require(global.PATH.API);
-        await api('messages.send', {
+        let res = await api('messages.send', {
             peer_id: this.peer,
             message: answer,
             random_id: Date.now()
         });
+
+        return res;
     }
 };
