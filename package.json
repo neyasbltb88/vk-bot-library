@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start:ngrok": "call ngrok.exe start --none",
-        "dev": "nodemon --inspect bot/index.js",
+        "dev": "nodemon --inspect=9222 bot/index.js",
         "start": "node bot/index.js"
     },
     "keywords": [],

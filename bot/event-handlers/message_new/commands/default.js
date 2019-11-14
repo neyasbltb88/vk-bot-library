@@ -5,8 +5,8 @@ module.exports = class {
     }
 
     async reply(answer = this.answer) {
-        const api = require(global.PATH.API);
-        let res = await api('messages.send', {
+        const vkApi = require(global.PATH.VK_API);
+        let res = await vkApi('messages.send', {
             peer_id: this.peer,
             message: answer,
             random_id: Date.now()

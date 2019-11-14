@@ -1,5 +1,5 @@
 const axios = require('axios');
-const api = require('../api');
+const vkApi = require('../vkApi');
 const HANDLERS = require('../event-handlers');
 
 module.exports = class {
@@ -72,7 +72,7 @@ module.exports = class {
         let group = this.groupIdParser(this.CONFIG.GROUP);
 
         try {
-            let res = await api('groups.getById', {
+            let res = await vkApi('groups.getById', {
                 group_id: group
             });
             groupId = res.response[0].id;
@@ -94,7 +94,7 @@ module.exports = class {
 
     async addDevServer() {
         let { SECRET } = this.CONFIG;
-        let res = await api('groups.addCallbackServer', {
+        let res = await vkApi('groups.addCallbackServer', {
             title: this.devServerTitle,
             url: this.ngrokPublicUrl,
             group_id: this.groupId,
@@ -106,7 +106,7 @@ module.exports = class {
 
     async editDevServer() {
         let { SECRET } = this.CONFIG;
-        await api('groups.editCallbackServer', {
+        await vkApi('groups.editCallbackServer', {
             server_id: this.devServerId,
             title: this.devServerTitle,
             url: this.ngrokPublicUrl,
@@ -117,12 +117,11 @@ module.exports = class {
 
     async getClearEventsList() {
         let clearEvents = {};
-        let events = await api('groups.getCallbackSettings', {
+        let events = await vkApi('groups.getCallbackSettings', {
             group_id: this.groupId,
             server_id: this.devServerId
         });
         events = events.response.events;
-        // console.log('-events-: ', events);
 
         for (const key in events) {
             clearEvents[key] = '0';
@@ -146,7 +145,7 @@ module.exports = class {
 
     async setCallbackSettings(events) {
         let { API_VERSION } = this.CONFIG;
-        await api('groups.setCallbackSettings', {
+        await vkApi('groups.setCallbackSettings', {
             group_id: this.groupId,
             server_id: this.devServerId,
             api_version: API_VERSION,
@@ -155,11 +154,10 @@ module.exports = class {
     }
 
     async setupDevCallbackServer() {
-        let groupServers = await api('groups.getCallbackServers', {
+        let groupServers = await vkApi('groups.getCallbackServers', {
             group_id: this.groupId
         });
         groupServers = groupServers.response.items;
-        // console.log(groupServers);
 
         let serverId = this.findDevServerId(groupServers);
         if (!serverId) {
@@ -169,13 +167,9 @@ module.exports = class {
             this.devServerId = serverId;
             this.editDevServer();
         }
-        console.log('-serverId-:', serverId);
 
         let clearEventsList = await this.getClearEventsList();
-        // console.log('-clearEventsList-: ', clearEventsList);
-
         let handledEvents = this.getHandledEvents();
-        // console.log('-handledEvents-: ', handledEvents);
 
         let newEvents = {
             ...clearEventsList,
@@ -188,12 +182,8 @@ module.exports = class {
 
     async init() {
         this.ngrokPublicUrl = await this.getNgrokPublicUrl();
-        // console.log('-ngrokPublicUrl-: ', this.ngrokPublicUrl);
-
         this.groupId = await this.getGroupId();
         this.CONFIG.GROUP_ID = this.groupId.toString();
-        // console.log('-getGroupId-:', this.groupId);
-
         await this.setupDevCallbackServer();
     }
 };

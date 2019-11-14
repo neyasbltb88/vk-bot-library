@@ -9,7 +9,7 @@ const db = require('./db');
 
 global.PATH = {
     ROOT: __dirname,
-    API: path.resolve(__dirname, './api'),
+    VK_API: path.resolve(__dirname, './vkApi'),
     CONFIG: path.resolve(__dirname, './config'),
     MSG_ACTIONS: path.resolve(__dirname, './event-handlers/message_new/actions'),
     MSG_COMMANDS: path.resolve(__dirname, './event-handlers/message_new/commands')
