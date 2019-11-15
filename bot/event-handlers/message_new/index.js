@@ -64,9 +64,10 @@ module.exports = class {
             let command = this.COMMANDS[i];
 
             // Если в тексте сообщения найдено совпадение с регуляркой обработчика, вызываем его и выходим из цикла
-            if (command.regex.exec(message.text)) {
+            let match = command.regex.exec(message.text);
+            if (match) {
                 isHandled = true;
-                new command.handler(message);
+                new command.handler(message, match);
 
                 break;
             }

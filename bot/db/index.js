@@ -4,6 +4,7 @@ const { Author, Category, Note } = require('./models');
 module.exports = class {
     constructor(connectUrl) {
         this.connectUrl = connectUrl;
+        this.defaultLimit = 10;
     }
 
     /* === Автор === */
@@ -69,8 +70,46 @@ module.exports = class {
         return res;
     }
 
+    // Находит документ категории по ее имени
     async findCategory(name) {
-        return await Category.findOne({ name });
+        let regex = new RegExp(name);
+        return await Category.findOne({ 'name': { $regex: regex, $options: 'iu' } });
+    }
+
+    // Находит массив категорий в соответствии с пагинацией
+    async findCategoryListPage(page = 1, limit = this.defaultLimit, populate = '') {
+        page = page > 1 ? page : 1;
+        limit = limit > 1 ? limit : 1;
+        let skip = page > 1 ? (page - 1) * limit : 0;
+        let result = {};
+
+        let count = await Category.countDocuments();
+        if (!count) {
+            return {
+                error: true,
+                text: 'Не найдено ни одной категории'
+            };
+        }
+
+        let total = Math.ceil(count / limit);
+        if (page > total) {
+            return {
+                error: true,
+                text: `Всего страниц категорий: ${total}`
+            };
+        }
+
+        let categoryList = await Category.find().setOptions({ skip, limit, populate, lean: true, sort: 'count name' });
+
+        result = {
+            categories: [...categoryList],
+            pagination: {
+                current: page,
+                total
+            }
+        };
+
+        return result;
     }
     /* --- Категории --- */
 
@@ -96,9 +135,60 @@ module.exports = class {
         return res;
     }
 
+    // Находит документ записи по ее id
     async findNote(id, populate = '') {
-        let res = await Note.findById(id).populate(populate);
+        let res = await Note.findById(id)
+            .populate(populate)
+            .lean(true);
+
+        if (!res) {
+            res = {
+                error: true,
+                text: `Записи с id "${id}" не существует`
+            };
+        }
+
         return res;
+    }
+
+    // Находит массив записей в категории в соответствии с пагинацией
+    async findNotesPage(category, page = 1, limit = this.defaultLimit, populate = '') {
+        page = page > 1 ? page : 1;
+        limit = limit > 1 ? limit : 1;
+        let skip = page > 1 ? (page - 1) * limit : 0;
+        let result = {};
+
+        let cat = await this.findCategory(category);
+        if (!cat) {
+            return {
+                error: true,
+                text: `Категории "${category}" не существует`
+            };
+        }
+
+        let total = Math.ceil(cat.count / limit);
+        if (page > total) {
+            return {
+                error: true,
+                text: `В категории "${category}" всего страниц: ${total}`
+            };
+        }
+
+        let notes = await Note.find()
+            .select('_id title')
+            .where({ category: cat._id })
+            .setOptions({ skip, limit, populate, lean: true, sort: '-date' });
+
+        result = {
+            category: cat.name,
+            notes: [...notes],
+            pagination: {
+                current: page,
+                total
+            }
+        };
+
+        return result;
     }
     /* --- Записи --- */
 

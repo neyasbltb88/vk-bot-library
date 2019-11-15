@@ -138,8 +138,6 @@ module.exports = class {
             }
         }
 
-        events.message_edit = '1';
-
         return events;
     }
 
