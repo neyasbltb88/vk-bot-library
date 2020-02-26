@@ -25,7 +25,7 @@ module.exports = class extends DEFAULT {
             title: title.trim(),
             body: body.trim(),
             attachments: this.message.attachments,
-            author: this.message.peer_id
+            author: this.message.from_id
         });
         // console.log('data: ', data);
 

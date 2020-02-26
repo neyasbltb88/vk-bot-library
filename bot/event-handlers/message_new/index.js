@@ -1,6 +1,8 @@
 module.exports = class {
     constructor({ body }) {
-        console.log(body);
+        if (global.CONFIG.NODE_ENV === 'development') {
+            console.log(body);
+        }
 
         this.COMMANDS = require(global.PATH.MSG_COMMANDS);
 
