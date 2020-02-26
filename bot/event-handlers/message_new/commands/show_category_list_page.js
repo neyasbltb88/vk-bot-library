@@ -24,7 +24,7 @@ module.exports = class extends DEFAULT {
         let { page } = this.match.groups;
 
         let data = await DB.findCategoryListPage(page);
-        console.log('data: ', data);
+        // console.log('data: ', data);
 
         if (data.error) {
             this.reply(data.text);

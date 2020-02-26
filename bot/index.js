@@ -41,7 +41,7 @@ app.post('/', (req, res) => {
 });
 
 app.listen(CONFIG.PORT, async () => {
-    console.log(`Example app listening on port ${CONFIG.PORT}!`);
+    console.log(`Бот запущен на порту: ${CONFIG.PORT}!`);
 
     // Подключение к базе данных
     await DB.connect();

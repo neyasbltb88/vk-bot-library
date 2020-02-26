@@ -24,7 +24,7 @@ module.exports = class extends DEFAULT {
         let { category, page } = this.match.groups;
 
         let data = await DB.findNotesPage(category, page);
-        console.log('data: ', data);
+        // console.log('data: ', data);
 
         if (data.error) {
             this.reply(data.text);

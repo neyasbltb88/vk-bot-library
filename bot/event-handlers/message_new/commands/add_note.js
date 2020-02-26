@@ -27,7 +27,7 @@ module.exports = class extends DEFAULT {
             attachments: this.message.attachments,
             author: this.message.peer_id
         });
-        console.log('data: ', data);
+        // console.log('data: ', data);
 
         let answer = this.render(data);
         this.reply(answer);

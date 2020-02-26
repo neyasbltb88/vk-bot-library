@@ -6,7 +6,7 @@ module.exports = {
     SECRET: process.env.SECRET,
     API_VERSION: process.env.API_VERSION,
     PORT: process.env.PORT,
-    CONFIRMATION: process.env.CONFIRMATION,
+    PUBLIC_URL: process.env.PUBLIC_URL,
     TOKEN: process.env.TOKEN,
     DB_URL: process.env.DB_URL
 };

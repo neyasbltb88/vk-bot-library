@@ -21,7 +21,8 @@ module.exports = class extends DEFAULT {
             let vkUser = await vkApi('users.get', { user_ids: authorId });
             let { first_name, last_name } = vkUser.response[0];
 
-            noteFooterAuthor = `Ⓒ[id${authorId}|${first_name} ${last_name}]`;
+            // noteFooterAuthor = `Ⓒ[id${authorId}|${first_name} ${last_name}]`;
+            noteFooterAuthor = `Ⓒ${first_name} ${last_name}`;
             noteFooterDivide = '-'.repeat(noteFooterAuthor.length) + '-';
             // eslint-disable-next-line no-empty
         } catch (err) {}
@@ -44,7 +45,7 @@ module.exports = class extends DEFAULT {
         let { id } = this.match.groups;
 
         let data = await DB.findNote(id, 'author category');
-        console.log('data: ', data);
+        // console.log('data: ', data);
 
         if (data.error) {
             this.reply(data.text);
