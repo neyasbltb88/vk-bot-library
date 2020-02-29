@@ -8,7 +8,7 @@ const add_note = require('./add_note');
 module.exports = [
     {
         // Вывод списка команд бота
-        regex: /команды/iu,
+        regex: /^\s*!?\s*команды/iu,
         handler: show_commands
     },
     {
