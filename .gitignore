@@ -4,3 +4,5 @@ nodemon.json
 
 # Editor directories and files
 *.code-workspace
+vk_bot.ico
+desktop.ini
