@@ -1,7 +1,7 @@
 module.exports = class {
     constructor({ peer_id }) {
         this.peer = peer_id;
-        this.answer = `-Я не знаю такой команды- 😒`;
+        this.answer = `--Я не знаю такой команды-- 😒`;
     }
 
     async reply(answer = this.answer) {
